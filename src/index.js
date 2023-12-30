@@ -1,4 +1,4 @@
-const xmlModel = require('djf-xml')
+const xmlModel = require('lerxml')
 
 module.exports = NfeModel
 

@@ -1,5 +1,5 @@
 {
-  "name": "djf-nfe",
+  "name": "lernfe",
   "version": "1.7.0",
   "description": "NFe xml parser",
   "main": "src/index.js",
@@ -14,17 +14,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/djalmaoliveira/djf-nfe.git"
+    "url": "https://github.com/guio11221/lernfe.git"
   },
   "bugs": {
-    "url": "https://github.com/djalmaoliveira/djf-nfe/issues"
+    "url": "https://github.com/guio11221/lernfe"
   },
   "devDependencies": {
     "mocha": "^6.2.2"
   },
-  "author": "Djalma Oliveira",
+  "author": "Guii Santos",
   "license": "MIT",
   "dependencies": {
-    "djf-xml": "^1.0.11"
+    "lerxml": "^1.0.1"
   }
 }
