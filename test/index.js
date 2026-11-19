@@ -321,9 +321,9 @@ describe('Strict NFe collection index validation', function () {
   it('does not silently parse malformed collection positions', function () {
     var nfe = NFe(fixture())
     for (var nr of ['1foo', '1.5', '-1', 0, -1, 1.5, NaN, Infinity]) {
-      assert.strictEqual(nfe.item(nr).codigo(), '', String(nr))
-      assert.strictEqual(nfe.observacao(nr).texto(), '', String(nr))
-      assert.strictEqual(nfe.cobranca().duplicata(nr).numeroDuplicata(), '', String(nr))
+      assert.strictEqual(nfe.item(nr), '', String(nr))
+      assert.strictEqual(nfe.observacao(nr), '', String(nr))
+      assert.strictEqual(nfe.cobranca().duplicata(nr), '', String(nr))
     }
   })
 })
