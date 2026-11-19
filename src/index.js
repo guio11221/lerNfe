@@ -4,7 +4,7 @@ module.exports = NfeModel
 
 function validOrdinal (nr) {
   if (typeof nr !== 'number' && typeof nr !== 'string') return null
-  if (typeof nr === 'string' && !/^[1-9]\\d*$/.test(nr)) return null
+  if (typeof nr === 'string' && !/^[1-9]\d*$/.test(nr)) return null
   var index = Number(nr)
   return Number.isSafeInteger(index) && index > 0 ? index - 1 : null
 }
