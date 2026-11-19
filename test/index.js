@@ -309,3 +309,21 @@ describe('NFe inválida', function () {
     })
   })
 })
+
+describe('Strict NFe collection index validation', function () {
+  it('accepts valid numeric and string positions', function () {
+    var nfe = NFe(fixture())
+    assert.strictEqual(nfe.item(1).codigo(), nfe.item('1').codigo())
+    assert.strictEqual(nfe.observacao(1).texto(), nfe.observacao('1').texto())
+    assert.strictEqual(nfe.cobranca().duplicata(1).numeroDuplicata(), nfe.cobranca().duplicata('1').numeroDuplicata())
+  })
+
+  it('does not silently parse malformed collection positions', function () {
+    var nfe = NFe(fixture())
+    for (var nr of ['1foo', '1.5', '-1', 0, -1, 1.5, NaN, Infinity]) {
+      assert.strictEqual(nfe.item(nr), '', String(nr))
+      assert.strictEqual(nfe.observacao(nr), '', String(nr))
+      assert.strictEqual(nfe.cobranca().duplicata(nr), '', String(nr))
+    }
+  })
+})
