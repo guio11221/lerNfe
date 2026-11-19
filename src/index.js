@@ -11,7 +11,8 @@ function validOrdinal (nr) {
 
 function NfeModel (content) {
   content = !content ? '' : content
-  var xml = (typeof content !== 'object') ? xmlModel(content) : content
+  var isXmlModel = content && typeof content.tagValue === 'function' && typeof content.tagGroup === 'function'
+  var xml = isXmlModel ? content : xmlModel(typeof content === 'string' ? content : '')
 
   var value = function (result) {
     result = !result ? '' : result
