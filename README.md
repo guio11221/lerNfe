@@ -1,32 +1,44 @@
-# Ler Nfe-io
+# LerNfe
 
-O módulo Nfe-io é uma ferramenta simples para ler XML de notas fiscais, permitindo a extração fácil e eficiente de dados desses documentos.
+Biblioteca Node.js para consultar dados de Notas Fiscais Eletrônicas (NF-e) a partir do XML.
+
 ## Instalação
 
-Certifique-se de ter o Node.js instalado em seu ambiente de desenvolvimento.
-
-
 ```bash
-  npm install lernfe
+npm install lernfe
 ```
-    
-## Uso/Exemplos
 
-Aqui está um exemplo básico de como usar o lernfe para extrair informações de uma nota fiscal em XML:
+## Exemplo funcional
+
+Os métodos de consulta são disponibilizados pelo objeto retornado por `require('lernfe')`. A API pública utiliza `nrNota()`, `emitente().nome()` e `total().valorNota()`, não `tagValue()`.
+
 ```javascript
-const nfeIo = require('lernfe');
+const NFe = require('lernfe');
 
 const xmlNfe = `
-  <nfe>
-    <!-- ... conteúdo da nota fiscal ... -->
-  </nfe>
-`;
+<nfeProc>
+  <NFe>
+    <infNFe>
+      <ide><nNF>123</nNF></ide>
+      <emit><xNome>Empresa Exemplo</xNome></emit>
+      <total><ICMSTot><vNF>150.00</vNF></ICMSTot></total>
+    </infNFe>
+  </NFe>
+</nfeProc>`;
 
-const nfeData = nfeIo(xmlNfe);
+const nfe = NFe(xmlNfe);
 
-console.log('Número da Nota Fiscal:', nfeData.tagValue('nNF'));
-console.log('Emitente:', nfeData.tagValue(['emit', 'xNome']));
-console.log('Valor Total:', nfeData.tagValue('vNF'));
-
+console.log('Número da NF-e:', nfe.nrNota());
+console.log('Emitente:', nfe.emitente().nome());
+console.log('Valor total:', nfe.total().valorNota());
 ```
 
+Saída esperada:
+
+```text
+Número da NF-e: 123
+Emitente: Empresa Exemplo
+Valor total: 150.00
+```
+
+Para XMLs reais, consulte os métodos de cada objeto retornado, por exemplo `identificacaoNFe()`, `destinatario()`, `item(1)` e `cobranca().duplicata(1)`.
