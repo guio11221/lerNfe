@@ -2,6 +2,13 @@ const xmlModel = require('lerxml')
 
 module.exports = NfeModel
 
+function validOrdinal (nr) {
+  if (typeof nr !== 'number' && typeof nr !== 'string') return null
+  if (typeof nr === 'string' && !/^[1-9]\\d*$/.test(nr)) return null
+  var index = Number(nr)
+  return Number.isSafeInteger(index) && index > 0 ? index - 1 : null
+}
+
 function NfeModel (content) {
   content = !content ? '' : content
   var xml = (typeof content !== 'object') ? xmlModel(content) : content
@@ -186,8 +193,8 @@ function NfeModel (content) {
     },
 
     observacao: function (nr) {
-      nr = parseInt(nr, 10) - 1
-      return value(xmlModel(xml.tagGroup('obsCont')[nr]))
+      nr = validOrdinal(nr)
+      return nr === null ? value('') : value(xmlModel(xml.tagGroup('obsCont')[nr]))
     },
 
     texto: function () {
@@ -211,8 +218,8 @@ function NfeModel (content) {
     },
 
     item: function (nr) {
-      nr = parseInt(nr, 10) - 1
-      return value(xmlModel(xml.tagGroup('det')[nr]))
+      nr = validOrdinal(nr)
+      return nr === null ? value('') : value(xmlModel(xml.tagGroup('det')[nr]))
     },
 
     codigo: function () {
@@ -554,8 +561,8 @@ function NfeModel (content) {
     },
 
     duplicata: function (nr) {
-      nr = parseInt(nr, 10) - 1
-      return value(xmlModel(xml.tagGroup('dup')[nr]))
+      nr = validOrdinal(nr)
+      return nr === null ? value('') : value(xmlModel(xml.tagGroup('dup')[nr]))
     },
 
     numeroDuplicata: function () {
