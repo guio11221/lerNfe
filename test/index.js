@@ -327,3 +327,19 @@ describe('Strict NFe collection index validation', function () {
     }
   })
 })
+
+describe('Invalid NFe input types', function () {
+  it('does not call tagValue on arbitrary objects or arrays', function () {
+    for (var input of [{}, [], { tagValue: 'not a function' }, { tagValue: function () {} }]) {
+      var nfe = NFe(input)
+      assert.strictEqual(nfe.nrNota(), '')
+      assert.strictEqual(nfe.chave(), '')
+      assert.strictEqual(nfe.nrItens(), 0)
+    }
+  })
+
+  it('keeps accepting a valid XML model object', function () {
+    var xml = require('lerxml')('<nfe><nNF>42</nNF></nfe>')
+    assert.strictEqual(NFe(xml).nrNota(), '42')
+  })
+})
